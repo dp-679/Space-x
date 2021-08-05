@@ -1,0 +1,46 @@
+.launch{
+    padding: 8px;
+    height: 200px;
+    width: 1000px;
+    display: flex;
+    box-shadow: 1px 1px 9px 1px darkgrey;
+    margin: 50px 50px;
+    border-radius: 8px;
+    cursor: pointer;
+
+}
+
+.launch img{
+    height: 200px;
+    width: 200px;
+}
+.content{
+    margin-left: 20px;
+    width: 80%;
+    color: cadetblue;
+}
+.content .info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.b{
+    font-size: 30px;
+}
+dd {
+    font-size: 23px;
+}   
+
+.content p{
+    font-size: 25px;
+    margin-top: 20px    ;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    color: gray;
+
+}
+h1{
+    margin:0px;
+}
