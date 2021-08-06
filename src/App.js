@@ -2,7 +2,7 @@ import React from "react";
 import './App.css';
 import Header from "./components/Header";
 import { LaunchList } from "./components/LaunchList/LaunchList";
-import { LaunchView } from "./components/LaunchView/Launchview";
+import   LaunchView  from "./components/LaunchView/Launchview";
 import {
   BrowserRouter as Router,
   Switch,
