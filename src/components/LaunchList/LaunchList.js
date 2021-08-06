@@ -2,6 +2,7 @@ import React from 'react';
 import Launch from '../Launch/Launch';
 import './style.css';
 import axios from 'axios';
+import { Link } from "react-router-dom"
 
 
 
@@ -30,12 +31,16 @@ export class LaunchList extends React.Component{
             const image= launch.links.flickr_images.length === 0 ?
             'https://i.insider.com/608d79c734af8d001859a6db?width=700' : launch.links.flickr_images[0]
 
-            return <Launch 
-                key={"launch_"+index}
+            return (
+            <Link  key={"launch_"+index} 
+            to={"/launch/" + launch.flight_number}>
+            <Launch 
+               
                 banner={image}
                 title={launch.mission_name}
                 launchData={launch.launch_date_local}
-                description={launch.details }/> 
+                description={launch.details }/>
+                </Link>)
 
         })
         return launchListComponents;
