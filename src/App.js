@@ -1,7 +1,7 @@
 import React from "react";
 import './App.css';
 import Header from "./components/Header";
-import LaunchList from "./components/LaunchList/LaunchList";
+import {LaunchList} from "./components/LaunchList/LaunchList";
 
 
 

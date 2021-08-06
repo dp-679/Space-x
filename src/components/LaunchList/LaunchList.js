@@ -1,30 +1,51 @@
 import React from 'react';
 import Launch from '../Launch/Launch';
-import './style.css'
+import './style.css';
+import axios from 'axios';
 
 
-class LaunchList extends React.Component{
+
+export class LaunchList extends React.Component{
+
+    state = {
+        launches:[]
+    }
+
+    componentDidMount = () => {
+        this.getLaunches()
+    }
+
+    getLaunches = () => {
+        axios.get('https://api.spacexdata.com/v3/launches').then((response)=>{
+            this.setState(
+                { launches: response.data }
+            )
+        }).catch((error)=>{
+            console.log(error)
+        })
+    }
+
+    launchList = () => {
+        const launchListComponents = this.state.launches.map((launch,index)=>{
+            const image= launch.links.flickr_images.length === 0 ?
+            'https://i.insider.com/608d79c734af8d001859a6db?width=700' : launch.links.flickr_images[0]
+
+            return <Launch 
+                key={"launch_"+index}
+                banner={image}
+                title={launch.mission_name}
+                launchData={launch.launch_date_local}
+                description={launch.details }/> 
+
+        })
+        return launchListComponents;
+    }
+
     render(){
+
         return(
             <div className="launch-list">
-                <Launch 
-                    banner="https://farm8.staticflickr.com/7615/16670240949_8d43db0e36_o.jpg"
-                    title="FalconSat"
-                    launchData="2006-03-25T10:30:00+12:00"
-                    description="First launch under USAF's OSP 3 launch contract. First SpaceX launch to put a satellite to an orbit with an orbital altitude many times the distance to the Moon: Sun-Earth libration point L1. The first stage made a test flight descent to an over-ocean landing within 10 m (33 ft) of its intended target." /> 
-
-                <Launch 
-                    banner="https://farm8.staticflickr.com/7615/16670240949_8d43db0e36_o.jpg"
-                    title="FalconSat"
-                    launchData="2006-03-25T10:30:00+12:00"
-                    description="First launch under USAF's OSP 3 launch contract. First SpaceX launch to put a satellite to an orbit with an orbital altitude many times the distance to the Moon: Sun-Earth libration point L1. The first stage made a test flight descent to an over-ocean landing within 10 m (33 ft) of its intended target." />
-                <Launch 
-                    banner="https://farm8.staticflickr.com/7615/16670240949_8d43db0e36_o.jpg"
-                    title="FalconSat"
-                    launchData="2006-03-25T10:30:00+12:00"
-                    description="First launch under USAF's OSP 3 launch contract. First SpaceX launch to put a satellite to an orbit with an orbital altitude many times the distance to the Moon: Sun-Earth libration point L1. The first stage made a test flight descent to an over-ocean landing within 10 m (33 ft) of its intended target." />
-
-
+               {this.launchList()}
             </div>
         )
     }
