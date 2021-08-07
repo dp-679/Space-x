@@ -1,12 +1,30 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from 'react-router';
-import "./style.css"
+import "./style.css";
+import { Zoom } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
+
+
+const zoomOutproperties = {
+    duration: 4000,
+    transitionDuration: 500,
+    infinite: true,
+    indicators: true,
+    scale: 0.4,
+    arrows: true
+  }
+
 
 export class LaunchView extends React.Component {
 
     state = {
-        launch: {}
+        launch: {
+            links: {
+                flickr_images: []
+            }
+
+        }
     }
 
     componentDidMount = () => {
@@ -25,7 +43,7 @@ export class LaunchView extends React.Component {
     }
 
 
-    launchAttribute = (title,key) => {
+    launchAttribute = (title, key) => {
         const value = this.state.launch[key]
         return (
             <div className="attribute">
@@ -36,17 +54,26 @@ export class LaunchView extends React.Component {
     }
 
     render() {
-        console.log(this.state.launch)
+        console.log(this.state.launch.links.flickr_images)
         return (
             <div className="launch-view">
-                {this.launchAttribute("Mission Name","mission_name")}
-                {this.launchAttribute("Flight Number","flight_number")}
-                {this.launchAttribute("Launch Date","launch_date_local")}
-                <p>{this.state.launch.details}</p>
+                {this.launchAttribute("Mission Name", "mission_name")}
+                {this.launchAttribute("Flight Number", "flight_number")}
+                {this.launchAttribute("Launch Date", "launch_date_local")}
+
+                <Zoom {...zoomOutproperties}>
+                    {
+                        this.state.launch.links.flickr_images.map((each, index) =>
+                            <img key={index} alt="Flicker Image" style={{ width: "100%" }} src={each} />
+                        )
+                    }
+                </Zoom>
+
+                <p className="launch-details">{this.state.launch.details}</p>
             </div>
         )
 
     }
 }
 
-export default withRouter(LaunchView)
+export default withRouter(LaunchView);  
