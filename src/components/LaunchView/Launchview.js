@@ -13,7 +13,7 @@ const zoomOutproperties = {
     indicators: true,
     scale: 0.4,
     arrows: true
-  }
+}
 
 
 export class LaunchView extends React.Component {
@@ -54,6 +54,8 @@ export class LaunchView extends React.Component {
     }
 
     render() {
+        const hasImages = this.state.launch.flickr_images.length > 0;
+
         console.log(this.state.launch.links.flickr_images)
         return (
             <div className="launch-view">
@@ -61,6 +63,8 @@ export class LaunchView extends React.Component {
                 {this.launchAttribute("Flight Number", "flight_number")}
                 {this.launchAttribute("Launch Date", "launch_date_local")}
 
+
+                hasImages && (
                 <Zoom {...zoomOutproperties}>
                     {
                         this.state.launch.links.flickr_images.map((each, index) =>
@@ -68,6 +72,8 @@ export class LaunchView extends React.Component {
                         )
                     }
                 </Zoom>
+                )
+
 
                 <p className="launch-details">{this.state.launch.details}</p>
             </div>
@@ -76,4 +82,4 @@ export class LaunchView extends React.Component {
     }
 }
 
-export default withRouter(LaunchView);  
+export default withRouter(LaunchView);
